@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'players.apps.PlayersConfig',
     'schedule.apps.ScheduleConfig',
     'teams.apps.TeamsConfig',
+    'shopping.apps.ShoppingConfig',
 ]
 
 MIDDLEWARE = [

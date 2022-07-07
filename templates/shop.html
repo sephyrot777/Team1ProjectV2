@@ -1,0 +1,50 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}상품페이지{% endblock %}
+{% block style %}
+    <style>
+        #nav { width: 200px;}
+        #wrap {display: flex;}
+    </style>
+{% endblock %}
+
+
+{% block contents %}
+<div id="wrap">
+    <div id="nav" class="bg-dark">
+        <nav class="navbar-dark bg-dark py-2 fs-5 fw-bold">
+            <ul class="navbar-nav nav-fill">
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=서울">FC 서울</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=수원삼성">수원 삼성 블루윙즈</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=울산">울산 현대</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=포항">포항 스틸러스</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=제주">제주 유나이티드 FC</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=수원">수원 FC</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=전북">전북 현대 모터스</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=인천">인천 유나이티드 FC</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=대구">대구 FC</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=강원">강원 FC</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=김천">김천 상무 FC</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shopping/shop/?based=성남">성남 FC</a></li>
+            </ul>
+        </nav>
+    </div>
+    {% if based == '인천' or based == '울산' %}
+        <div class="bg-dark" style="width: 1100px; height: 1000px;">
+            <img src="https://swai.smu.ac.kr/images/sub/bg_ready.jpg" style="width: 1100px; height: 700px;">
+        </div>
+    {% else %}
+        <iframe width="1100" height="1000" src="{{ url }}" name="test" id="test"></iframe>
+    {% endif %}
+
+</div>
+
+
+
+
+
+{% endblock %}
+
+
+{% block script %}{% endblock %}
