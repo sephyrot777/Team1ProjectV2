@@ -6,7 +6,7 @@ from django.views import View
 # Player -> 선수1 감독 뷰
 class CoachView(View):
     def get(self, request):
-        return render(request, 'players/coach.html')
+        return render(request, 'players/coach1.html')
 
     def post(self, request):
         pass

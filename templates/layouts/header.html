@@ -29,7 +29,7 @@
 <nav class="mb-auto nav navbar-expand mt-3 navbar-dark bg-dark fw-bold">
     <ul class="dropdown navbar-nav nav-fill w-100">
         <li class="nav-item nonlis">
-            <a class="nav-link" href="{% url 'index' %}">Media</a>
+            <a class="nav-link" href="{% url 'news' %}">Media</a>
             <div class="dropdown_menu1">
                 <ul class="d-flex">
                     <li class="nonlis"><div class="container">
@@ -37,11 +37,11 @@
                             <h3>Media</h3>
                             <hr class="line1">
                             <ul>
-                                <li><a href="#">News<i class="bi bi-chevron-compact-right"></i></a></li>
+                                <li><a href="{% url 'news' %}">News<i class="bi bi-chevron-compact-right"></i></a></li>
                                 <hr class="line2">
-                                <li><a href="#">공지사항<i class="bi bi-chevron-compact-right"></i></a></li>
+                                <li><a href="{% url 'announce' %}">공지사항<i class="bi bi-chevron-compact-right"></i></a></li>
                                 <hr class="line2">
-                                <li><a href="#">구단<i class="bi bi-chevron-compact-right"></i></a></li>
+                                <li><a href="{% url 'teamPlayer' %}">구단<i class="bi bi-chevron-compact-right"></i></a></li>
                                 <hr class="line2">
                             </ul>
                         </div>
@@ -51,7 +51,7 @@
             </div>
         </li>
         <li class="nav-item nonlis">
-            <a class="nav-link" href="{% url 'agree' %}">K리그 일정</a>
+            <a class="nav-link" href="{% url 'KL1' %}">K리그 일정</a>
             <div class="dropdown_menu1">
                 <ul class="d-flex">
                     <li class="nonlis"><div class="container">
@@ -59,9 +59,9 @@
                             <h3>K리그 일정</h3>
                             <hr class="line1">
                             <ul>
-                                <li><a href="#">K리그 1<i class="bi bi-chevron-compact-right"></i></a></li>
+                                <li><a href="{% url 'KL1' %}">K리그 1<i class="bi bi-chevron-compact-right"></i></a></li>
                                 <hr class="line2">
-                                <li><a href="#">K리그 2(준비 중)<i class="bi bi-chevron-compact-right"></i></a></li>
+                                <li><a href="{% url 'KL2' %}">K리그 2(준비 중)<i class="bi bi-chevron-compact-right"></i></a></li>
                                 <hr class="line2">
                             </ul>
                         </div>
@@ -71,7 +71,7 @@
             </div>
         </li>
         <li class="nav-item nonlis">
-            <a class="nav-link" href="{% url 'index' %}">Player</a>
+            <a class="nav-link" href="{% url 'coach' %}">Player</a>
             <div class="dropdown_menu1">
                 <ul class="d-flex">
                     <li class="nonlis"><div class="container">
@@ -79,9 +79,9 @@
                             <h3>Player</h3>
                             <hr class="line1">
                             <ul>
-                                <li><a href="#">선수1 감독<i class="bi bi-chevron-compact-right"></i></a></li>
+                                <li><a href="{% url 'coach' %}">선수1 감독<i class="bi bi-chevron-compact-right"></i></a></li>
                                 <hr class="line2">
-                                <li><a href="#">기록 / 순위<i class="bi bi-chevron-compact-right"></i></a></li>
+                                <li><a href="{% url 'record' %}">기록 / 순위<i class="bi bi-chevron-compact-right"></i></a></li>
                                 <hr class="line2">
                             </ul>
                         </div>
