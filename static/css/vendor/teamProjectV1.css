@@ -25,6 +25,7 @@
 .dropdown_menu1 {
     display:none;
     position:absolute;
+    z-index: 5;
     left:0;
     background: white;
     width:100%;
@@ -101,7 +102,9 @@
 
 /* 메인색 임시 */
 #main {
-    background: #e3e3e3;
+    position:relative;
+    z-index: -1;
+    background:#e3e3e3
 }
 
 footer {
