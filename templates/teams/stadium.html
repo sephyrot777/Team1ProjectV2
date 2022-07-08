@@ -4,7 +4,7 @@
 {% block style %}
     <style>
         #wrap {display: flex}
-        #nav { width: 300px;}
+        #nav { width: 200px;}
         #info>ul, #nav>ul { list-style: none; padding: 0; }
         #info>ul:first-child li { border: 1px solid blue; width: 300px; height: 50px; font-weight: bold; font-size: 20px; padding-top: 10px;}
         #info>ul:last-child li { border: 1px solid blue; width: 500px; height: 50px; font-weight: bold; font-size: 20px; padding-top: 10px;}
@@ -19,18 +19,9 @@
     <div id="nav" class="bg-dark">
         <nav class="navbar-dark bg-dark py-2 fs-5 fw-bold">
             <ul class="navbar-nav nav-fill">
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=서울">FC 서울</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=수원삼성">수원 삼성 블루윙즈</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=울산">울산 현대</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=포항">포항 스틸러스</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=제주">제주 유나이티드 FC</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=수원">수원 FC</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=전북">전북 현대 모터스</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=인천">인천 유나이티드 FC</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=대구">대구 FC</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=강원">강원 FC</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=김천">김천 상무 FC</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based=성남">성남 FC</a></li>
+                {% for t in tbs %}
+                <li class="nav-item"><a class="nav-link" href="/teams/stadium/?based={{ t.based }}">{{ t.hteam }}</a></li>
+                {% endfor %}
             </ul>
         </nav>
     </div>

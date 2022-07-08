@@ -9,6 +9,7 @@ from teams.models import Stadiums
 class TeamsView(View):
     def get(self, request):
         form = request.GET.dict()
+        tbs = Stadiums.objects.all()
         print(form)
 
         if (form != {}):
@@ -16,7 +17,8 @@ class TeamsView(View):
         else:
             team = Stadiums.objects.get(based='서울')
 
-        context = {'stname': team.stname,
+        context = {'tbs': tbs,
+                   'stname': team.stname,
                    'opdate': team.opdate,
                    'based': team.based,
                    'hteam': team.hteam,
