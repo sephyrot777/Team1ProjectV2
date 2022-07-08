@@ -10,12 +10,12 @@ class TeamsView(View):
     def get(self, request):
         form = request.GET.dict()
         tbs = Stadiums.objects.all()
-        print(form)
 
         if (form != {}):
             team = Stadiums.objects.get(based=form['based'])
         else:
             team = Stadiums.objects.get(based='서울')
+            print(team)
 
         context = {'tbs': tbs,
                    'stname': team.stname,

@@ -5,18 +5,25 @@
     <style>
         #wrap {display: flex}
         #nav { width: 200px;}
-        #info>ul, #nav>ul { list-style: none; padding: 0; }
-        #info>ul:first-child li { border: 1px solid blue; width: 300px; height: 50px; font-weight: bold; font-size: 20px; padding-top: 10px;}
-        #info>ul:last-child li { border: 1px solid blue; width: 500px; height: 50px; font-weight: bold; font-size: 20px; padding-top: 10px;}
-        #info { display: flex; justify-content: center }
-        #main { text-align: center; border: 1px solid red; width: 1200px; background: white;}
-        #map1 { width: 600px; margin: 0 auto;}
+        #info { display: flex}
+        #info table tr td:first-child { width:150px; border-bottom: 1px solid white; border-right: 1px solid white; }
+        #info table tr td:last-child { width:350px; border-bottom: 1px solid white; }
+        #info table tr td { color: white; font-weight: bold;}
+        #info table { background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("https://blog.kakaocdn.net/dn/kWr1v/btqyqdOcKUZ/5bqzHwqJJdKvPBU4ekM1WK/img.jpg");
+                                        background-size: 500px 400px; background-position: center;}
+
+        {##info>ul:nth-child(2) li { border: 1px solid blue; width: 150px; height: 80px; font-weight: bold; font-size: 20px; padding-top: 25px;}#}
+        {##info>ul:last-child li { border: 1px solid blue; width: 350px; height: 80px; font-weight: bold; font-size: 20px; padding-top: 25px;}#}
+        {##info { display: flex; }#}
+        #info img { width: 600px; height: 400px;}
+        #main { text-align: center; border: 1px solid red; width: 1100px; background: white;}
+        #map1 { margin: 0 auto;}
     </style>
 {% endblock %}
 
 {% block contents %}
 <div id="wrap">
-    <div id="nav" class="bg-dark">
+    <div id="nav" class="bg-dark ">
         <nav class="navbar-dark bg-dark py-2 fs-5 fw-bold">
             <ul class="navbar-nav nav-fill">
                 {% for t in tbs %}
@@ -26,24 +33,35 @@
         </nav>
     </div>
     <div id="main">
-        <img style="width: 600px; height: 400px; margin-bottom: 10px" src="/static/imgs/stadiums/{{ based }}.jfif">
         <div id="info">
-            <ul>
-                <li>경기장 이름</li>
-                <li>개장일</li>
-                <li>홈 구단</li>
-                <li>수용인원</li>
-                <li>위치</li>
-            </ul>
-            <ul>
-                <li>{{ stname }}</li>
-                <li>{{ opdate }}</li>
-                <li>{{ hteam }}</li>
-                <li>{{ accnum }}명</li>
-                <li>{{ addr }}</li>
-            </ul>
+            <table>
+                <tr>
+                    <img src="/static/imgs/stadiums/{{ based }}.jfif">
+                </tr>
+                <tr>
+                    <td><div>경기장 이름</div></td>
+                    <td><div>{{ stname }}</div></td>
+                </tr>
+                <tr>
+                    <td><div>개장일</div></td>
+                    <td><div>{{ opdate }}</div></td>
+                </tr>
+                <tr>
+                    <td><div>홈 구단</div></td>
+                    <td><div>{{ hteam }}</div></td>
+                </tr>
+                <tr>
+                    <td><div>수용인원</div></td>
+                    <td><div>{{ accnum }}</div></td>
+                </tr>
+                <tr>
+                    <td><div>위치</div></td>
+                    <td><div>{{ addr }}</div></td>
+                </tr>
+            </table>
 
         </div>
+
         <div id="map1">
             <div id="daumRoughmapContainer{{ addrstmp }}" class="root_daum_roughmap root_daum_roughmap_landing"></div>
             <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
@@ -51,8 +69,8 @@
                 new daum.roughmap.Lander({
                     "timestamp" : "{{ addrstmp }}",
                     "key" : "{{ addrkey }}",
-                    "mapWidth" : "600",
-                    "mapHeight" : "300"
+                    "mapWidth" : "1100",
+                    "mapHeight" : "700"
                 }).render();
             </script>
         </div>
