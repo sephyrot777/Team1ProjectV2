@@ -19,13 +19,13 @@
         {% block contents %}{% endblock %}
 
         {% include 'layouts/footer.html' %}
-
-
     </div>
 
-    <!-- 후에 모달 추가 -->
+    {% include 'layouts/modal.html' %}
+
+
     <script src="{% static '/js/vendor/bs5/bootstrap.bundle.min.js' %}"></script>
-    {# <script src="{% static '/js/webproject.js' %}"></script>#}
+    <script src="{% static '/js/webproject.js' %}"></script>
     {% block script %}{% endblock %}
 </body>
 
