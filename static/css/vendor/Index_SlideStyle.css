@@ -25,7 +25,7 @@ body{
 /* 인풋(라디오 버튼) 위치 조절 */
 /* position때문에 justify-content:center가 실행 안 됨 */
 /* 추후 가운데 정렬 필요*/
-input {
+#slider input {
     position:relative;
     top: 108%;
     width: 18px;
