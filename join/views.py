@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 import requests
@@ -25,7 +26,7 @@ class CheckmeView(View):
 
         params = {'secret': SECRET_KEY, 'response': form['g-recaptcha']}
 
-        result = requests.get(VERIFY_URL, params=params).json
+        result = requests.get(VERIFY_URL, params=params).json()
 
         if result['success']:
             tokens = {'name': form['name'], 'phone': form['phone']}

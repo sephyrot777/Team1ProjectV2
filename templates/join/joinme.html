@@ -1,10 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layouts/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}회원가입-기본정보입력{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/vendor/join.css' %}">
+    <style>
+        table {
+            {#border:1px solid black;#}
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #a2a2a2;
+            padding:20px;
+        }
+        td:first-child {
+            width:20%;
+            font-weight: bold;
+            font-size: 16px;
+            padding-left:40px;
+            background: #efefef;
+        }
+        table th{
+            border:none;
+        }
+        table th:first-child, td:first-child{
+            border-left:none;
+        }
+        table th:last-child, td:last-child{
+            border-right:none;
+        }
+        table tr:nth-child(2) {
+            border-top: 3px solid black;
+        }
+        table strong {
+            font-weight:bolder;
+            color:crimson;
+        }
+        table input {
+            width:250px;
+            height:40px;
+        }
+    </style>
+{% endblock %}
+
+{% block contents %}
+    <div id="main">
+        <div class="mb-4" id="seq">
+            <div id="step1"><span>Step.1 약관동의</span><span><i class="bi bi-list-check text-center"></i></span></div>
+            <div id="step2"><span>Step.2 본인인증</span><span><i class="bi bi-shield-lock text-center"></i></span></div>
+            <div id="step3on"><span>Step.3 기본정보입력</span><span><i class="bi bi-pencil-square text-center"></i></span></div>
+            <div id="step4"><span>Step.4 가입완료</span><span><i class="bi bi-person-check text-center"></i></span></div>
+        </div><!-- // 절차칸 -->
+        <table>
+            <div class="mt-2 mx-5" id="agree">
+                <h1>3. 기본정보입력</h1>
+                <small class="fw-bold" style="color:#626262">입력하신 정보는 회원님의 동의없이 공개되지 않으며, 개인정보보호정책에 의해 보호를 받습니다.</small>
+             </div><!-- // 3.기본정보입력-->
+            <hr>
+            <form name="joinfrm" method="post">
+                {% csrf_token %}
+                <table class="mb-5">
+                    <tr>
+                        <th><h3>개인정보입력</h3></th>
+                        <th class="text-end"><strong>*</strong>표시는 필수 입력 항목입니다</th>
+                    </tr><!-- 윗줄 -->
+                    <tr>
+                        <td>회원아이디<strong style="color:crimson">*</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호<strong style="color:crimson">*</strong></td>
+                        <td><input type="password" name=""></td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호 확인<strong>*</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>닉네임</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>이름<strong>*</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>생년월일<strong>*</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>성별<strong>*</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Email<strong>*</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>휴대폰번호<strong>*</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>주소<strong>*</strong></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <table>
+                    <th style="text-align: start;"><h3>마케팅 및 광고 활용 수신여부(선택)</h3></th>
+                    <th style="text-align: end; font-weight: bold">마케팅 및 광고 활용에 동의한 경우만 해당됩니다.</th>
+                </table>
+                <table class="mb-5">
+                    <tr>
+                        <td style="border-top:3px solid black;width:20%;">이메일 수신 여부</td>
+                        <td style="border-top:3px solid black;"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div><!-- //main -->
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}
