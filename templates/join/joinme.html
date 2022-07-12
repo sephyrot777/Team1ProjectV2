@@ -60,6 +60,21 @@
         .noforms tr:nth-child(2) {
             border-top: 0;
         }
+
+        /* 모달 */
+         #shadow{
+            position : absolute;
+            top : 0; left : 0;
+            background : black;
+            opacity : 0.65;
+            display:none;
+        }
+        #modal{
+            position : absolute;
+            background : white;
+            width : 600px; height : 450px;
+            display :none;
+        }
     </style>
 {% endblock %}
 
@@ -96,7 +111,8 @@
                     <td><input type="password" style="margin-bottom: 5px;" maxlength="18" name="passwd" id="passwd">
                         <label>영문 대/소문자, 특수기호(!@#$%&*7종)을 포함한 문자를 포함한 문자를 사용하여
                             <br>8~18자리로 구성해야 합니다.</label>
-                        <button type="button" class="btn btn-outline-secondary text-right" style="float:right;">비밀번호 도움말</button></td>
+                        <button type="button" class="btn btn-outline-secondary text-right" style="float:right;"
+                            id="mdlbtn">비밀번호 도움말</button></td>
                 </tr><!-- //password -->
                 <tr>
                     <td>비밀번호 확인<strong>*</strong></td>
@@ -217,10 +233,10 @@
             </table> <!-- //recaptcha -->
 
             <div class="text-center mt-5">
-                <button type="button" class="btn btn-danger" id="nojoin">
-                    <i class="bi bi-x"></i>입력취소</button>
-                <button type="button" class="btn btn-primary" id="okjoin">
-                    <i class="bi bi-check"></i>입력완료</button>
+                <button type="button" class="btn btn-danger" id="okjoin">
+                    <i class="bi bi-check"></i>가입하기</button>
+                <button type="button" class="btn btn-secondary" id="nojoin">
+                    <i class="bi bi-x"></i>취소하기</button>
             </div> <!-- //buttons -->
 
             <input type="hidden" name="seq">
@@ -228,6 +244,60 @@
             <input type="hidden" name="ismatched" value="no">
         </form>
     </div><!-- //main -->
+
+    <!--// 비밀번호 옆에 있는 버튼이랑 연결되는 모달창은 후에 수정 -->
+    <!--<div id="shadow"></div>
+    <div id="modal">
+        <div style="height: 50px; background: crimson; text-align: center;">
+            비밀번호 도움말
+            <i class="bi bi-x fs-2" style="float: right;" id="closebtn"></i></div>
+        <table class="noforms">
+            <tr>
+                <td><div style="width:20px; height:20px;
+                background: crimson; color:white; text-align: center">1</div></td>
+                <td><b>영문(대&middot;소문자) / 숫자 / 특수문자(!@#$%&*-7종) 중<br>
+                    2종 이상을 조합하여 8~18자로 구성해야 합니다.</b></td>
+            </tr>
+            <tr>
+                <td><div style="width:20px; height:20px;
+                background: crimson; color:white; text-align: center">2</div></td>
+                <td>
+                    <b>아래에 해당하는 비밀번호는 사용을 금해주시기 바랍니다.</b>
+                    <br>
+                    1) 특정 패턴을 갖는 비밀번호
+                    <br>
+                    - 동일한 문자의 반복 : aaabbb, 123123등
+                    <br>
+                    - 키보드상에서 연속한 위치에 존재하는 문자들의 집합 : qwerty, asdfg등
+                    <br>
+                    - 특정 문자열이 포함된 패스워드 : password, votmdnjem, qlalfqjsgh
+                    <br>
+                    2) 개인정보와 유추하기 쉬운 패스워드
+                    <br>
+                    (ex: ID, 본인이름, 생년월일, 학번, 핸드폰, 집, 전화번호 등이 포함된 패스워드)
+                </td>
+            </tr>
+            <tr>
+                <td><div style="width:20px; height:20px;
+                background: crimson; color:white; text-align: center">3</div></td>
+                <td>
+                    <b>비밀번호 변경시 기존에 사용하시던 비밀번호 사용은 불가능 합니다.</b>
+                </td>
+            </tr>
+            <tr>
+                <td><div style="width:20px; height:20px;
+                background: crimson; color:white; text-align: center">4</div></td>
+                <td>
+                    <b>
+                        비밀번호가 다른 사람에게 알려지는 것을 막기 위해
+                        <br>
+                        1개월에 한 번씩 정기적으로 바꾸면서 사이트를 이용하여 주시기 바랍니다.
+                    </b>
+                </td>
+            </tr>
+        </table>
+    </div>-->
+    
 
 {% endblock %}
 
@@ -266,9 +336,7 @@
         // 아이디 중복 체크
         const userid=document.querySelector('#userid');
         const uidmsg=document.querySelector('#uidmsg');
-        const uidbtn=document.querySelector('#uidbtn');
-
-        uidbtn.addEventListener('click', ()=>{
+        userid.addEventListener('blur', ()=>{
             let qry = '?userid=' +userid.value;
             fetch('{% url 'userid' %}' + qry)
                 .then(response => response.text())
@@ -286,7 +354,30 @@
 
            uidmsg.innerHTML = msg;
         };
-    </script>
+
+        // 닉네임 입력 안한 경우
+        const nickname=document.querySelector('#nickname')
+
+        if (nickname.value==''){nickname.value==document.joinfrm.name.value}
+        console.log(nickname.value)
+
+        const okjoin = document.querySelector('#okjoin');
+        okjoin.addEventListener('click', ()=>{
+        const frm =document.joinfrm;
+            if (frm.userid.value == '') alert('아이디를 작성하세요!');
+            //else if (frm.ischecked.value == 'no') alert('아이디 중복검사를 하세요!')
+            else if (frm.passwd.value == '') alert('비밀번호를 작성하세요!');
+            else if (frm.repasswd.value == '') alert('비밀번호 확인을 해주세요!');
+            else if (frm.ismatched.value == 'no') alert('비밀번호가 서로 일치하는지 확인하세요!');
+            else if (frm.zip1.value == '' || frm.zip2.value == '') alert('우편번호를 작성하세요!');
+            else if (frm.addr1.value == '' || frm.addr2.value == '') alert('나머지 주소를 작성하세요!');
+            else if (frm.email1.value == '' || frm.email2.value == '') alert('이메일을 작성하세요!');
+            else if (frm.mailing1.checked == false && frm.mailing2.checked == false)
+                alert('메일링 서비스 수신의 동의여부를 결정해 주세요!');
+            else if (grecaptcha.getResponse() == '') alert('자동가입 방지를 확인하세요!');
+            else frm.submit();
+        });
+    </script>{# 회원가입 관련 js #}
     <script>
         function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -335,5 +426,54 @@
             }
         }).open();
     }
-    </script>
+    </script>{# 카카오 우편번호 api #}
+    <script>
+        const mdlbtn = document.getElementById('mdlbtn');
+
+        const makeShadow =() =>{
+            let shadow = document.getElementById('shadow');
+            shadow.style.width='100%';
+            shadow.style.height='100%';
+            shadow.style.display='block';
+            document.body.style.overflow = "hidden";
+        };  // 검은색 뒷배경 생성
+
+        const makeModal =() =>{
+            let modal=document.getElementById('modal');
+
+            let cx=(window.innerWidth-350)/2;
+            let cy=(window.innerHeight-250)/2;
+
+            modal.style.top=cy + 'px';
+            modal.style.left=cx + 'px';
+
+            modal.style.display='block';
+        };
+
+        const makeModalBtn=()=>{
+            let clsbtn = document.getElementById('closebtn');
+            clsbtn.addEventListener('click',()=>{
+                let shadow = document.getElementById('shadow');
+                let modal = document.getElementById('modal');
+
+                modal.style.display='none';
+                shadow.style.display='none';
+            });
+        };
+
+        mdlbtn.addEventListener('click', ()=>{
+            makeShadow(); makeModal(); makeModalBtn();
+        });
+
+        window.addEventListener('resize',()=>{
+            let modal = document.getElementById('modal');
+
+            let cx=(window.innerWidth-600)/2;
+            let cy=(window.innerHeight-450)/2;
+            modal.style.top=cy + 'px';
+            modal.style.left=cx + 'px';
+
+        });
+
+   </script>{# 모달js 후에 수정#}
 {% endblock %}
