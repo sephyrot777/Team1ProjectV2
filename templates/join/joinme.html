@@ -124,7 +124,7 @@
                 <tr>
                     <td>닉네임</td>
                     <td><input type="text" maxlength="18" name="nickname" id="nickname">
-                        <label>특수문자 제외, 미입력시 이름으로 설정됩니다</label>
+                        <label>특수문자를 제외한 한글이나 영문으로 작성해 주세요</label>
                     </td>
                 </tr>
                 <tr>
@@ -164,15 +164,15 @@
                 </tr>
                 <tr>
                     <td>이름<strong>*</strong></td>
-                    <td>{{ name }}</td>
+                    <td>{{ name }}<input type="hidden" name="name" id="name" value="{{ name }}"></td>
                 </tr>
                 <tr>
                     <td>생년월일<strong>*</strong></td>
-                    <td>{{ birth }}</td>
+                    <td>{{ birth }}<input type="hidden" name="birth" id="birth" value="{{ birth }}"></td>
                 </tr>
                 <tr>
                     <td>성별<strong>*</strong></td>
-                    <td>{{ gender }}</td>
+                    <td>{{ gender }}<input type="hidden" name="gender" id="gender" value="{{ gender }}"></td>
                 </tr>
                 <tr>
                     <td>Email<strong>*</strong></td>
@@ -192,7 +192,7 @@
                 </tr>
                 <tr>
                     <td>휴대폰번호<strong>*</strong></td>
-                    <td>{{ phone }}</td>
+                    <td>{{ phone }}<input type="hidden" name="phone" id="phone" value="{{ phone }}"></td>
                 </tr>
                 <tr>
                     <td>주소<strong>*</strong></td>
@@ -358,8 +358,7 @@
         // 닉네임 입력 안한 경우
         const nickname=document.querySelector('#nickname')
 
-        if (nickname.value==''){nickname.value==document.joinfrm.name.value}
-        console.log(nickname.value)
+
 
         const okjoin = document.querySelector('#okjoin');
         okjoin.addEventListener('click', ()=>{
@@ -369,8 +368,9 @@
             else if (frm.passwd.value == '') alert('비밀번호를 작성하세요!');
             else if (frm.repasswd.value == '') alert('비밀번호 확인을 해주세요!');
             else if (frm.ismatched.value == 'no') alert('비밀번호가 서로 일치하는지 확인하세요!');
-            else if (frm.zip1.value == '' || frm.zip2.value == '') alert('우편번호를 작성하세요!');
-            else if (frm.addr1.value == '' || frm.addr2.value == '') alert('나머지 주소를 작성하세요!');
+            else if (frm.nickname.value == '') alert('닉네임을 작성하세요!');
+            else if (frm.team.value == '') alert('지지하는 구단을 선택하세요!');
+            else if (frm.addr1.value == '' || frm.addr2.value == '' || frm.addr3.value == '') alert('나머지 주소를 작성하세요!');
             else if (frm.email1.value == '' || frm.email2.value == '') alert('이메일을 작성하세요!');
             else if (frm.mailing1.checked == false && frm.mailing2.checked == false)
                 alert('메일링 서비스 수신의 동의여부를 결정해 주세요!');
