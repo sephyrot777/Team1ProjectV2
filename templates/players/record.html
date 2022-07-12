@@ -2,6 +2,13 @@
 {% load static %}
 
 {% block title %}{% endblock %}
+{% block style %}
+    <style>
+        #mtable th { text-align: end; width: 100px; border: 1px solid black; font-size: 15px;}
+        #mtable td { text-align: center; width: 200px;border: 1px solid black}
+    </style>
+
+{% endblock %}
 
 {% block contents %}
     <div>
@@ -37,23 +44,24 @@
                     <tbody>
                     {% for p in pbs %}
                     <tr class="text-danger" href="/players/record/?name={{ p.name }}">
-                        <td>{{ p.rank }}</td>
-                        <td><a href="javascript:showrecord('{{ p.id }}')">{{ p.name }}</a></td>
-                        <td><img src="/static/imgs/{{ p.team }}/reclogo.png">{{ p.team }}</td>
-                        <td>{{ p.goal }}</td>
-                        <td>{{ p.assist }}</td>
-                        <td>{{ p.attackpoint }}</td>
-                        <td hidden>{{ p.losspoint }}</td>
-                        <td hidden>{{ p.cornerkick }}</td>
-                        <td hidden>{{ p.foul }}</td>
-                        <td hidden>{{ p.shoot }}</td>
-                        <td hidden>{{ p.offside }}</td>
-                        <td>{{ p.warning }}</td>
-                        <td>{{ p.exit }}</td>
-                        <td hidden>{{ p.norun }}</td>
-                        <td hidden>{{ p.trip }}</td>
-                        <td hidden>{{ p.replace }}</td>
-                        <td hidden>{{ p.matchpoint }}</td>
+                        <td id="rank{{ p.rank }}">{{ p.rank }}</td>
+{#                        <td><a href="javascript:showrecord('{{ p.id }}')">{{ p.name }}</a></td>#}
+                        <td id="name{{ p.rank }}"><a href="javascript:showrecord({{ p.rank }})">{{ p.name }}</a></td>
+                        <td id="team{{ p.rank }}"><img src="/static/imgs/{{ p.team }}/reclogo.png">{{ p.team }}</td>
+                        <td id="goal{{ p.rank }}">{{ p.goal }}</td>
+                        <td id="assist{{ p.rank }}">{{ p.assist }}</td>
+                        <td id="attackpoint{{ p.rank }}">{{ p.attackpoint }}</td>
+                        <td hidden id="losspoint{{ p.rank }}">{{ p.losspoint }}</td>
+                        <td hidden id="cornerkick{{ p.rank }}">{{ p.cornerkick }}</td>
+                        <td hidden id="foul{{ p.rank }}">{{ p.foul }}</td>
+                        <td hidden id="shoot{{ p.rank }}">{{ p.shoot }}</td>
+                        <td hidden id="offside{{ p.rank }}">{{ p.offside }}</td>
+                        <td id="warning{{ p.rank }}">{{ p.warning }}</td>
+                        <td id="exit{{ p.rank }}">{{ p.exit }}</td>
+                        <td hidden id="norun{{ p.rank }}">{{ p.norun }}</td>
+                        <td hidden id="trip{{ p.rank }}">{{ p.trip }}</td>
+                        <td hidden id="replace{{ p.rank }}">{{ p.replace }}</td>
+                        <td hidden id="matchpoint{{ p.rank }}">{{ p.matchpoint }}</td>
                     </tr> <!-- 1위 -->
                     {% endfor %}
                     </tbody> <!-- 선수기록표 -->
@@ -81,7 +89,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <table>
+                <div id="image" style="text-align: center; margin-bottom: 10px;"></div>
+                <table id="mtable" style="margin: 0 auto">
+
                     <tr>
                         <th>순위</th>
                         <td id="rank"></td>
@@ -92,11 +102,11 @@
                     </tr>
                     <tr>
                         <th>팀</th>
-                        <td id="team"><img src="/static/imgs/{{ p.team }}/reclogo.png">{{ p.team }}</td>
+                        <td id="team"></td>
                     </tr>
                     <tr>
                         <th>득점</th>
-                        <td id="goal">{{ goal }}</td>
+                        <td id="goal"></td>
                     </tr>
                     <tr>
                         <th>도움</th>
@@ -104,51 +114,51 @@
                     </tr>
                     <tr>
                         <th>공격포인트</th>
-                        <td id="attckpoint">{{ p.attackpoint }}</td>
+                        <td id="attackpoint"></td>
                     </tr>
                     <tr>
                         <th>실점</th>
-                        <td id="losspoint">{{ p.losspoint }}</td>
+                        <td id="losspoint">{{ losspoint }}</td>
                     </tr>
                     <tr>
                         <th>코너킥</th>
-                        <td id="cornerkick">{{ p.cornerkick }}</td>
+                        <td id="cornerkick">{{ cornerkick }}</td>
                     </tr>
                     <tr>
                         <th>파울</th>
-                        <td id="foul">{{ p.foul }}</td>
+                        <td id="foul">{{ foul }}</td>
                     </tr>
                     <tr>
                         <th>슈팅</th>
-                        <td id="shoot">{{ p.shoot }}</td>
+                        <td id="shoot">{{ shoot }}</td>
                     </tr>
                     <tr>
                         <th>오프사이드</th>
-                        <td id="offside">{{ p.offside }}</td>
+                        <td id="offside">{{ offside }}</td>
                     </tr>
                     <tr>
                         <th>경고</th>
-                        <td id="warning">{{ p.warning }}</td>
+                        <td id="warning">{{ warning }}</td>
                     </tr>
                     <tr>
                         <th>퇴장</th>
-                        <td id="exit">{{ p.exit }}</td>
+                        <td id="exit">{{ exit }}</td>
                     </tr>
                     <tr>
                         <th>무실점경기</th>
-                        <td id="norun">{{ p.norun }}</td>
+                        <td id="norun">{{ norun }}</td>
                     </tr>
                     <tr>
                         <th>출장</th>
-                        <td id="trip">{{ p.trip }}</td>
+                        <td id="trip">{{ trip }}</td>
                     </tr>
                     <tr>
                         <th>교체</th>
-                        <td id="replace">{{ p.replace }}</td>
+                        <td id="replace">{{ replace }}</td>
                     </tr>
                     <tr>
                         <th>경기당 기록</th>
-                        <td id="matchpoint">{{ p.matchpoint }}</td>
+                        <td id="matchpoint">{{ matchpoint }}</td>
                     </tr>
                 </table>
 
@@ -165,40 +175,33 @@
 
 {% block script %}
     <script>
-        {#document.getElementById('rank').textContent = document.getElementById('rank{{ p.rank }}').value#}
-        {#document.getElementById('name').textContent = document.getElementById('name1').value#}
-        {#document.getElementById('team').textContent = document.getElementById('team1').value#}
-        {#document.getElementById('goal').textContent = document.getElementById('goal1').value#}
-        {#document.getElementById('assist').textContent = document.getElementById('assist1').value#}
-        {#document.getElementById('attckpoint').textContent = document.getElementById('attckpoint1').value#}
-        {#document.getElementById('losspoint').textContent = document.getElementById('losspoint1').value#}
-        {#document.getElementById('cornerkick').textContent = document.getElementById('cornerkick1').value#}
-        {#document.getElementById('foul').textContent = document.getElementById('foul1').value#}
-        {#document.getElementById('shoot').textContent = document.getElementById('shoot1').value#}
-        {#document.getElementById('offside').textContent = document.getElementById('offside1').value#}
-        {#document.getElementById('warning').textContent = document.getElementById('warning1').value#}
-        {#document.getElementById('exit').textContent = document.getElementById('exit1').value#}
-        {#document.getElementById('norun').textContent = document.getElementById('norun1').value#}
-        {#document.getElementById('trip').textContent = document.getElementById('trip1').value#}
-        {#document.getElementById('replace').textContent = document.getElementById('replace1').value#}
-        {#document.getElementById('matchpoint').textContent = document.getElementById('matchpoint1').value#}
+        function showrecord(rank){
+            tname = document.getElementById(`team${rank}`).textContent
+            pname = document.getElementById(`name${rank}`).textContent
+            logo = '<img src="/static/imgs/'+tname+'/reclogo.png">'+tname
+            pimg = '<img src="/static/imgs/'+tname+'/'+pname+'.png" style="width: 200; height: 300px;">'
+            document.getElementById('image').innerHTML = pimg
+            document.getElementById('team').innerHTML = logo
 
-        function showrecord(id){
-            td =  document.querySelector(`table > tbody > tr:nth-child(${id}) > td:nth-child(1)`);
-            td1 =  document.querySelector(`table > tbody > tr:nth-child(${id}) > td:nth-child(2)`);
-            alert(td.innerHTML)
-            alert(td1.innerHTML.split('>')[1])
-            {#body > div.container > div:nth-child(4) > div > div.col-12.text-center > table > tbody > tr:nth-child(1) > td.point#}
-            {#body > div.container > div:nth-child(4) > div > div.col-12.text-center > table > tbody > tr:nth-child(1) > td:nth-child(5)#}
-            {#alert(td.innerHTML);#}
-            rank =  document.querySelector(`#rank`);
-            name =  document.querySelector(`#name`);
-            rank.innerHTML = td.innerHTML.split('<')[0];
-            name.innerHTML = td1.innerHTML.split('>')[1];
+            document.getElementById('rank').textContent = document.getElementById(`rank${rank}`).textContent
+            document.getElementById('name').textContent = document.getElementById(`name${rank}`).textContent
+            document.getElementById('goal').textContent = document.getElementById(`goal${rank}`).textContent
+            document.getElementById('assist').textContent = document.getElementById(`assist${rank}`).textContent
+            document.getElementById('attackpoint').textContent = document.getElementById(`attackpoint${rank}`).textContent
+            document.getElementById('losspoint').textContent = document.getElementById(`losspoint${rank}`).textContent
+            document.getElementById('cornerkick').textContent = document.getElementById(`cornerkick${rank}`).textContent
+            document.getElementById('foul').textContent = document.getElementById(`foul${rank}`).textContent
+            document.getElementById('shoot').textContent = document.getElementById(`shoot${rank}`).textContent
+            document.getElementById('offside').textContent = document.getElementById(`offside${rank}`).textContent
+            document.getElementById('warning').textContent = document.getElementById(`warning${rank}`).textContent
+            document.getElementById('exit').textContent = document.getElementById(`exit${rank}`).textContent
+            document.getElementById('norun').textContent = document.getElementById(`norun${rank}`).textContent
+            document.getElementById('trip').textContent = document.getElementById(`trip${rank}`).textContent
+            document.getElementById('replace').textContent = document.getElementById(`replace${rank}`).textContent
+            document.getElementById('matchpoint').textContent = document.getElementById(`matchpoint${rank}`).textContent
 
             const myModal = new bootstrap.Modal(document.getElementById('playermodal'))
             myModal.show();
-
         }
 
     </script>
