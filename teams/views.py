@@ -28,4 +28,6 @@ class TeamsView(View):
                    'addrkey': team.addrkey,
                    }
 
+        print(context)
+
         return render(request, 'teams/stadium.html', context)
