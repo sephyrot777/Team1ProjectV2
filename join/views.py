@@ -7,6 +7,9 @@ import json
 
 
 # 이용약관 동의 뷰
+from join.models import Member
+
+
 class AgreeView(View):
     def get(self, request):
         return render(request, 'join/agree.html')
@@ -83,18 +86,22 @@ class JoinmeView(View):
         form = request.POST.dict()
         print(form)
 
-        # email = form['email1'] + '@' + form['email2']
-        # mailing = True if form['mailing'] == 'yes' else False
-        #
-        # m = Member(userid=form['userid'],
-        #            passwd=form['passwd'],
-        #            name=form['name'],
-        #            phone=form['phone'],
-        #            zipcode=form['zipcode'],
-        #            addr=form['addr2'],
-        #            email=email,
-        #            mailing=mailing)
-        # m.save()
+        email = form['email1'] + '@' + form['email2']
+        mailing = True if form['mailing'] == 'yes' else False
+        addr = form['addr1'] + form['addr3'] + ' ' + form['addr2']
+
+        m = Member(userid=form['userid'],
+                   passwd=form['passwd'],
+                   nickname=form['nickname'],
+                   team=form['team'],
+                   name=form['name'],
+                   birth=form['birth'],
+                   phone=form['phone'],
+                   zipcode=form['zipcode'],
+                   addr=addr,
+                   email=email,
+                   mailing=mailing)
+        m.save()
 
         return redirect('/join/joinok?userid=' + form['userid'])
 
@@ -102,26 +109,24 @@ class JoinmeView(View):
 # 가입완료 뷰
 class JoinokView(View):
     def get(self, request):
-        # return render(request, 'join/joinok.html')
-        pass
+        return render(request, 'join/joinok.html')
 
     def post(self, request):
         pass
 
 # 회원가입관련 뷰
 class UseridView(View):
-    pass
-    # def get(self, request):
-    #     form = request.GET.dict()
-    #
-    #     # select count(*) from member where userid = ?
-    #     count = Member.objects.filter(userid=form['userid']).count()
-    #     # print(count)
-    #
-    #     json_data = {'count': count}
-    #     # print(json_data)
-    #
-    #     return HttpResponse(json.dumps(json_data), content_type='application/json')
-    #
-    # def post(self, request):
-    #     pass
+    def get(self, request):
+        form = request.GET.dict()
+
+        # select count(*) from member where userid = ?
+        count = Member.objects.filter(userid=form['userid']).count()
+        # print(count)
+
+        json_data = {'count': count}
+        # print(json_data)
+
+        return HttpResponse(json.dumps(json_data), content_type='application/json')
+
+    def post(self, request):
+        pass

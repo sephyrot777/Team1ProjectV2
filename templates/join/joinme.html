@@ -122,7 +122,7 @@
                     </td>
                 </tr><!-- //repasswd -->
                 <tr>
-                    <td>닉네임</td>
+                    <td>닉네임<strong style="color:crimson">*</strong></td>
                     <td><input type="text" maxlength="18" name="nickname" id="nickname">
                         <label>특수문자를 제외한 한글이나 영문으로 작성해 주세요</label>
                     </td>
@@ -336,7 +336,8 @@
         // 아이디 중복 체크
         const userid=document.querySelector('#userid');
         const uidmsg=document.querySelector('#uidmsg');
-        userid.addEventListener('blur', ()=>{
+        const uidbtn=document.querySelector('#uidbtn');
+        uidbtn.addEventListener('click', ()=>{
             let qry = '?userid=' +userid.value;
             fetch('{% url 'userid' %}' + qry)
                 .then(response => response.text())
@@ -364,7 +365,7 @@
         okjoin.addEventListener('click', ()=>{
         const frm =document.joinfrm;
             if (frm.userid.value == '') alert('아이디를 작성하세요!');
-            //else if (frm.ischecked.value == 'no') alert('아이디 중복검사를 하세요!')
+            else if (frm.ischecked.value == 'no') alert('아이디 중복검사를 하세요!')
             else if (frm.passwd.value == '') alert('비밀번호를 작성하세요!');
             else if (frm.repasswd.value == '') alert('비밀번호 확인을 해주세요!');
             else if (frm.ismatched.value == 'no') alert('비밀번호가 서로 일치하는지 확인하세요!');
