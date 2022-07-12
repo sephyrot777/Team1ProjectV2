@@ -28,8 +28,35 @@ class CheckmeView(View):
 
         result = requests.get(VERIFY_URL, params=params).json()
 
+
+        # 생일 yyyy-mm-dd로 표현하기 위해 주민번호에서 자르기
+        birth = form['birth']
+        gender = int(form['gender'])
+        # print(gender)
+        birth_long=''
+        birth_split = [birth[i:i + 2] for i in range(0, len(birth), 2)]
+        # print(birth_split)
+
+        if gender == 1 or gender == 2:
+            birth_long='19'+birth_split[0]+'-'+birth_split[1]+'-'+birth_split[2]
+        elif gender == 3 or gender == 4:
+            birth_long='20'+birth_split[0]+'-'+birth_split[1]+'-'+birth_split[2]
+        print(birth_long)
+
+        # 성별 한글로
+        if gender == 1 or gender == 3:
+            gender_ko='남자'
+        elif gender == 2 or gender == 4:
+            gender_ko='여자'
+        else:
+            gender_ko='none'
+
+        # tokens에 이름, 생일, 성별, 휴대폰번호 저장
         if result['success']:
-            tokens = {'name': form['name'], 'phone': form['phone']}
+            tokens = {'name': form['name'],
+                      'birth': birth_long,
+                      'gender': gender_ko,
+                      'phone': form['phone']}
 
             tokens = json.dumps(tokens, ensure_ascii=True)
             print(tokens)
@@ -53,7 +80,23 @@ class JoinmeView(View):
             return redirect('/join/agree')
 
     def post(self, request):
-        pass
+        form = request.POST.dict()
+        print(form)
+
+        # email = form['email1'] + '@' + form['email2']
+        # mailing = True if form['mailing'] == 'yes' else False
+        #
+        # m = Member(userid=form['userid'],
+        #            passwd=form['passwd'],
+        #            name=form['name'],
+        #            phone=form['phone'],
+        #            zipcode=form['zipcode'],
+        #            addr=form['addr2'],
+        #            email=email,
+        #            mailing=mailing)
+        # m.save()
+
+        return redirect('/join/joinok?userid=' + form['userid'])
 
 
 # 가입완료 뷰
@@ -66,8 +109,19 @@ class JoinokView(View):
         pass
 
 # 회원가입관련 뷰
-class ZipcodeView(View):
-    pass
-
 class UseridView(View):
     pass
+    # def get(self, request):
+    #     form = request.GET.dict()
+    #
+    #     # select count(*) from member where userid = ?
+    #     count = Member.objects.filter(userid=form['userid']).count()
+    #     # print(count)
+    #
+    #     json_data = {'count': count}
+    #     # print(json_data)
+    #
+    #     return HttpResponse(json.dumps(json_data), content_type='application/json')
+    #
+    # def post(self, request):
+    #     pass

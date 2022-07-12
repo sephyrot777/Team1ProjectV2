@@ -41,6 +41,25 @@
             width:250px;
             height:40px;
         }
+
+        .noforms {
+            border:none;
+            padding:0;
+        }
+        .noforms th, .noforms td{
+            border:none;
+            width:16%;
+            padding:5px;
+        }
+        .noforms td:first-child, .noforms th:first-child{
+            font-weight: normal;
+            padding-left:-40px;
+            background: none;
+            width:10%;
+        }
+        .noforms tr:nth-child(2) {
+            border-top: 0;
+        }
     </style>
 {% endblock %}
 
@@ -52,78 +71,269 @@
             <div id="step3on"><span>Step.3 기본정보입력</span><span><i class="bi bi-pencil-square text-center"></i></span></div>
             <div id="step4"><span>Step.4 가입완료</span><span><i class="bi bi-person-check text-center"></i></span></div>
         </div><!-- // 절차칸 -->
-            <div class="mt-2 mx-5" id="agree">
-                <h1>3. 기본정보입력</h1>
-                <small class="fw-bold" style="color:#626262">입력하신 정보는 회원님의 동의없이 공개되지 않으며, 개인정보보호정책에 의해 보호를 받습니다.</small>
-             </div><!-- // 3.기본정보입력-->
-            <hr>
-            <form name="joinfrm" method="post">
-                {% csrf_token %}
-                <table class="mb-5">
-                    <tr>
-                        <th><h3>개인정보입력</h3></th>
-                        <th class="text-end"><strong>*</strong>표시는 필수 입력 항목입니다</th>
-                    </tr><!-- 윗줄 -->
-                    <tr>
-                        <td>회원아이디<strong style="color:crimson">*</strong></td>
-                        <td><input type="text" name="">
-                            <button class="btn btn-outline-danger">중복확인</button></td>
-                    </tr>
-                    <tr>
-                        <td>비밀번호<strong style="color:crimson">*</strong></td>
-                        <td><input type="password" name="">
-                            <button class="btn btn-outline-secondary text-right">비밀번호 도움말</button></td>
-                    </tr>
-                    <tr>
-                        <td>비밀번호 확인<strong>*</strong></td>
-                        <td><input type="password" name=""></td>
-                    </tr>
-                    <tr>
-                        <td>닉네임</td>
-                        <td><input type="text" name=""></td>
-                    </tr>
-                    <tr>
-                        <td>이름<strong>*</strong></td>
-                        <td>{{ name }}</td>
-                    </tr>
-                    <tr>
-                        <td>생년월일<strong>*</strong></td>
-                        <td>{{ birth }}</td>
-                    </tr>
-                    <tr>
-                        <td>성별<strong>*</strong></td>
-                        <td>{{ gender }}</td>
-                    </tr>
-                    <tr>
-                        <td>Email<strong>*</strong></td>
-                        <td><input type="text" name="">@<input type="text" name=""></td>
-                    </tr>
-                    <tr>
-                        <td>휴대폰번호<strong>*</strong></td>
-                        <td>{{ phone }}</td>
-                    </tr>
-                    <tr>
-                        <td>주소<strong>*</strong></td>
-                        <td><input type="text" name=""><br>
-                        <input type="text" name=""><input type="text" name=""></td>
-                    </tr>
-                </table>
-                <table>
-                    <th style="text-align: start;"><h3>마케팅 및 광고 활용 수신여부(선택)</h3></th>
-                    <th style="text-align: end; font-weight: bold">마케팅 및 광고 활용에 동의한 경우만 해당됩니다.</th>
-                </table>
-                <table class="mb-5">
-                    <tr>
-                        <td style="border-top:3px solid black;width:20%;">이메일 수신 여부</td>
-                        <td style="border-top:3px solid black;"></td>
-                    </tr>
-                </table>
-            </form>
-    </div>
+        <div class="mt-2 mx-5" id="agree">
+            <h1>3. 기본정보입력</h1>
+            <small class="fw-bold" style="color:#626262">입력하신 정보는 회원님의 동의없이 공개되지 않으며, 개인정보보호정책에 의해 보호를 받습니다.</small>
+         </div><!-- // 3.기본정보입력-->
+        <hr>
+        <form name="joinfrm" method="post">
+            {% csrf_token %}
+            <table class="mb-5">
+                <tr>
+                    <th><h3>개인정보입력</h3></th>
+                    <th class="text-end"><strong>*</strong>표시는 필수 입력 항목입니다</th>
+                </tr><!-- 윗줄 -->
+                <tr>
+                    <td>회원아이디<strong style="color:crimson">*</strong></td>
+                    <td><input type="text" maxlength="18" name="userid" id="userid">
+                        <button type="button" class="btn btn-outline-danger" id="uidbtn">중복확인</button>
+                        <label>8~18자의 영문 소문자, 특수기호(_)만 사용할 수 있습니다</label>
+                        <div id="uidmsg"></div>
+                    </td>
+                </tr><!-- //userid -->
+                <tr>
+                    <td>비밀번호<strong style="color:crimson">*</strong></td>
+                    <td><input type="password" style="margin-bottom: 5px;" maxlength="18" name="passwd" id="passwd">
+                        <label>영문 대/소문자, 특수기호(!@#$%&*7종)을 포함한 문자를 포함한 문자를 사용하여
+                            <br>8~18자리로 구성해야 합니다.</label>
+                        <button type="button" class="btn btn-outline-secondary text-right" style="float:right;">비밀번호 도움말</button></td>
+                </tr><!-- //password -->
+                <tr>
+                    <td>비밀번호 확인<strong>*</strong></td>
+                    <td><input type="password" maxlength="18" name="repasswd" id="repasswd">
+                        <label>비밀번호를 동일하게 입력해주세요</label>
+                        <div id="pwdmsg"></div>
+                    </td>
+                </tr><!-- //repasswd -->
+                <tr>
+                    <td>닉네임</td>
+                    <td><input type="text" maxlength="18" name="nickname" id="nickname">
+                        <label>특수문자 제외, 미입력시 이름으로 설정됩니다</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>지지하는 팀</td>
+                    <td>
+                        <table class="noforms">
+                            <tr>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team1" value="강원 FC">
+                                    <label for="team1" class="form-check-label">강원 FC</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team2" value="김천 상무 FC">
+                                    <label for="team2" class="form-check-label">김천 상무 FC</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team3" value="대구 FC">
+                                    <label for="team3" class="form-check-label">대구 FC</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team4" value="서울 FC">
+                                    <label for="team4" class="form-check-label">서울 FC</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team5" value="성남 FC">
+                                    <label for="team5" class="form-check-label">성남 FC</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team6" value="수원 삼성 블루윙즈">
+                                    <label for="team6" class="form-check-label">수원 삼성 블루윙즈</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team7" value="수원 FC">
+                                    <label for="team7" class="form-check-label">수원 FC</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team8" value="울산 현대">
+                                    <label for="team8" class="form-check-label">울산 현대</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team9" value="인천 유나이티드 FC">
+                                    <label for="team9" class="form-check-label">인천 유나이티드 FC</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team10" value="전북 현대 모터스">
+                                    <label for="team10" class="form-check-label">전북 현대 모터스</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team11" value="제주 유나이티드 FC">
+                                    <label for="team11" class="form-check-label">제주 유나이티드 FC</label></td>
+                                <td><input type="radio" class="form-check-input" readonly name="team" id="team12" value="포항 스틸러스">
+                                    <label for="team12" class="form-check-label">포항 스틸러스</label></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>이름<strong>*</strong></td>
+                    <td>{{ name }}</td>
+                </tr>
+                <tr>
+                    <td>생년월일<strong>*</strong></td>
+                    <td>{{ birth }}</td>
+                </tr>
+                <tr>
+                    <td>성별<strong>*</strong></td>
+                    <td>{{ gender }}</td>
+                </tr>
+                <tr>
+                    <td>Email<strong>*</strong></td>
+                    <td><input type="text" style="width:150px; height:40px;" name="email1" id="email1">
+                        <span>@</span>
+                        <input type="text" style="width:200px; height:40px;" readonly name="email2" id="email2">
+                        <select style="width:150px; height:40px; margin-left:10px;" id="email3">
+                            <option>선택하세요</option>
+                            <option>naver.com</option>
+                            <option>daum.net</option>
+                            <option>gmail.com</option>
+                            <option>nate.com</option>
+                            <option>hotmail.com</option>
+                            <option>직접입력</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>휴대폰번호<strong>*</strong></td>
+                    <td>{{ phone }}</td>
+                </tr>
+                <tr>
+                    <td>주소<strong>*</strong></td>
+                    <td><input type="text" id="sample6_postcode" name="zipcode" style="margin-bottom: 10px;" placeholder="우편번호">
+                        <button type=button class="btn btn-secondary" onclick="sample6_execDaumPostcode()" value="우편번호 검색">우편번호 검색</button>
+                        <br>
+                        <input type="text" id="sample6_address" name="addr1" style="width:610px; margin-bottom:10px;" placeholder="주소"><br>
+                        <input type="text" style="width:300px;" name="addr2" id="sample6_detailAddress" placeholder="상세주소">
+                        <input type="text" style="width:300px; margin-left:10px;" name="addr3" id="sample6_extraAddress" placeholder="참고항목">
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <th style="text-align: start;"><h3>마케팅 및 광고 활용 수신여부(선택)</h3></th>
+                <th style="text-align: end; font-weight: bold">마케팅 및 광고 활용에 동의한 경우만 해당됩니다.</th>
+            </table>
+            <table class="mb-5">
+                <tr>
+                    <td style="border-top:3px solid black;width:20%;">이메일 수신 여부</td>
+                    <td style="border-top:3px solid black;">
+                        <input type="radio" class="form-check-input" readonly name="mailing" id="mailing1" value="yes">
+                        <label for="mailing1" class="form-check-label">예</label>
 
+                        <input type="radio" class="form-check-input" readonly name="mailing" id="mailing2" value="no">
+                        <label for="mailing2" class="form-check-label">아니오</label>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>자동 가입 방지</td>
+                    <td>
+                        <div class="g-recaptcha" data-sitekey="6Lfc8qYgAAAAACC4tqko7arDKGq8STh-lZig_DCF"></div>
+                        <input type="hidden" name="g-recaptcha" id="g-recaptcha">
+                        <div class="text-danger">{{ error }}</div>
+                    </td>
+                </tr>
+            </table> <!-- //recaptcha -->
+
+            <div class="text-center mt-5">
+                <button type="button" class="btn btn-danger" id="nojoin">
+                    <i class="bi bi-x"></i>입력취소</button>
+                <button type="button" class="btn btn-primary" id="okjoin">
+                    <i class="bi bi-check"></i>입력완료</button>
+            </div> <!-- //buttons -->
+
+            <input type="hidden" name="seq">
+            <input type="hidden" name="ischecked" value="no">
+            <input type="hidden" name="ismatched" value="no">
+        </form>
     </div><!-- //main -->
 
 {% endblock %}
 
 {% block script %}
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        // 메일주소 입력
+        const email2 = document.querySelector('#email2');
+        const email3 = document.querySelector('#email3');
+        email3.addEventListener('change',()=>{
+            if (email3.value == '직접입력') {
+                email2.value = '';
+                email2.readOnly = false;
+            }
+            else if(email3.value !='선택하세요') {
+                email2.value = email3.value;
+                email2.readOnly = true;
+            }
+        });
+
+        // 비밀번호 일치 여부 관련 코드
+        const passwd = document.querySelector('#passwd');
+        const repasswd = document.querySelector('#repasswd');
+        const pwdmsg = document.querySelector('#pwdmsg')
+        repasswd.addEventListener('blur',() => {
+            let msg='비밀번호가 일치합니다!';
+            document.joinfrm.ismatched.value = 'yes';
+
+           if (passwd.value != repasswd.value){
+               msg='비밀번호가 일치하지 않습니다';
+               document.joinfrm.ismatched.value = 'no';
+           }
+           pwdmsg.innerHTML=msg;
+        });
+
+        // 아이디 중복 체크
+        const userid=document.querySelector('#userid');
+        const uidmsg=document.querySelector('#uidmsg');
+        const uidbtn=document.querySelector('#uidbtn');
+
+        uidbtn.addEventListener('click', ()=>{
+            let qry = '?userid=' +userid.value;
+            fetch('{% url 'userid' %}' + qry)
+                .then(response => response.text())
+                .then(text => check_userid(text));
+        });
+
+        const check_userid = (result) => {
+            let msg ='중복된 아이디 입니다!';
+            document.joinfrm.ischecked.value = 'no';
+            // 문자열로 넘어온 json객체를 원래의 객체로 환원하기 위해 parse함수 사용
+            if (JSON.parse(result).count == 0 && userid.value != 0) {
+                document.joinfrm.ischecked.value = 'yes';
+                msg = '사용가능한 아이디 입니다!'
+            }
+
+           uidmsg.innerHTML = msg;
+        };
+    </script>
+    <script>
+        function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+    </script>
 {% endblock %}

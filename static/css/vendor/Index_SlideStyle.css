@@ -37,7 +37,7 @@ body{
 }
 
 /* 라디오 버튼 마지막 margin 없앰 */
-input[type=radio]:nth-child(5){
+#slider input[type=radio]:nth-child(5){
     margin-right: 0px;
 }
 

@@ -11,6 +11,5 @@ urlpatterns = [
     path('checkme/', views.CheckmeView.as_view(), name='checkme'),
     path('joinme/', views.JoinmeView.as_view(), name='joinme'),
     path('joinok/', views.JoinokView.as_view(), name='joinok'),
-    path('zipcode/', views.ZipcodeView.as_view(), name='zipcode'),
     path('userid/', views.UseridView.as_view(), name='userid'),
 ]
